@@ -1,0 +1,18 @@
+{
+  "name": "flip-table",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+	"bin": {
+		"flip-table": "./bin/flip-table"
+	},
+  "author": "Jonathan Boudreau <jonathan.boudreau.92@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "flip-text": "^1.1.0",
+    "to-clipboard": "^0.2.0"
+  }
+}
