@@ -1,4 +1,4 @@
-# Flip-Table
+# Flip-Table ![Build](https://travis-ci.org/AGhost-7/node-flip-table.svg?branch=master)
 Flip table meme.
 
 ## Installation
