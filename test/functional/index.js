@@ -10,7 +10,7 @@ describe('FLIPN OUT CLI WOW', function() {
 	});
 
 	it('should flip when piped', function(done) {
-		exect('echo FLIPPIN TABLES BRO | bin/flip-table -o', function(err, stdout, stderr) {
+		exec('echo FLIPPIN TABLES BRO | bin/flip-table -o', function(err, stdout, stderr) {
 			expect(stdout).to.contain('𐐒');
 			done();
 		});
