@@ -1,22 +1,26 @@
 {
-	"name": "flip-table",
-	"version": "1.0.2",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"bin": {
-		"flip-table": "./bin/flip-table"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/AGhost-7/node-flip-table.git"
-	},
-	"author": "Jonathan Boudreau <jonathan.boudreau.92@gmail.com>",
-	"license": "ISC",
-	"dependencies": {
-		"flip-text": "^1.1.0",
-		"to-clipboard": "^0.2.0"
-	}
+  "name": "flip-table",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/unit"
+  },
+  "bin": {
+    "flip-table": "./bin/flip-table"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AGhost-7/node-flip-table.git"
+  },
+  "author": "Jonathan Boudreau <jonathan.boudreau.92@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "flip-text": "^1.1.0",
+    "to-clipboard": "^0.2.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
 }
