@@ -1,6 +1,6 @@
 {
   "name": "flip-table",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "url": "https://github.com/AGhost-7/node-flip-table.git"
   },
   "author": "Jonathan Boudreau <jonathan.boudreau.92@gmail.com>",
-  "license": "ISC",
+  "license": "WTFPL",
   "dependencies": {
     "flip-text": "^1.1.0",
     "to-clipboard": "^0.2.0"
