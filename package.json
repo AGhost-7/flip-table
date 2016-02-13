@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/unit"
+    "test": "mocha test/unit && mocha test/functional"
   },
   "bin": {
     "flip-table": "./bin/flip-table"
