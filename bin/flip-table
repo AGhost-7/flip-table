@@ -3,7 +3,7 @@
 'use strict';
 
 var
-	toClipboard = require('to-clipboard'),
+	toClipboard = require('../lib/to-clipboard'),
 	flipTable = require('../index'),
  	rest, clip;
 
