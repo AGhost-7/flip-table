@@ -5,7 +5,7 @@
 var
 	toClipboard = require('../lib/to-clipboard'),
 	flipTable = require('../index'),
- 	rest, clip;
+	rest, clip;
 
 if(process.argv[2] === '-o') {
 	clip = false;
