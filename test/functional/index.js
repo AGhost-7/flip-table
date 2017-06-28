@@ -16,5 +16,19 @@ describe('FLIPN OUT CLI WOW', function() {
 		});
 	});
 
+	it('should unflip characters', function(done) {
+		exec('bin/flip-table -o derp | bin/flip-table -ou', function(err, stdout) {
+			expect(stdout).to.contain('derp');
+			done();
+		});
+	});
+
+	it('should unflip even if flipper not present', function(done) {
+		exec('bin/flip-table -o okthkxbye | cut -d \' \' -f 2 | bin/flip-table -ou', function(err, stdout) {
+			expect(stdout).to.be.equal('okthkxbye ノ( º _ ºノ)\n');
+			done();
+		});
+	});
+
 	// TODO: clipboard tests?? But liek, how?
 });

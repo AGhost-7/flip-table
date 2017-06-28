@@ -5,26 +5,34 @@
 var
 	toClipboard = require('../lib/to-clipboard'),
 	flipTable = require('../index'),
-	rest, clip;
+	argv = process.argv,
+	rest, clip, undo;
 
-if(process.argv[2] === '-o') {
+if(argv[2] === '-uo' || argv[2] === '-ou') {
 	clip = false;
-	if(process.argv.length === 3) {
-		rest = 0;
-	} else {
-		rest = 3;
-	}
-} else {
-	if(process.argv.length === 2) {
-		rest = 0;
-	} else {
-		rest = 2;
-	}
+	undo = true;
+	rest = 3;
+} else if((argv[2] === '-o' && argv[3] === '-u') ||
+		(argv[2] === '-u' && argv[3] === '-o')) {
+	clip = false;
+	undo = true;
+	rest = 4;
+} else if(argv[2] === '-o') {
+	clip = false;
+	undo = false;
+	rest = 3;
+} else if(argv[2] === '-u') {
 	clip = true;
+	undo = true;
+	rest = 3;
+} else {
+	clip = true;
+	undo = false;
+	rest = 2;
 }
 
 var onInput = function(input) {
-	var flipped = flipTable(input);
+	var flipped = undo ? flipTable.undo(input) : flipTable(input);
 	if(clip) {
 		toClipboard(flipped);
 	} else {
@@ -34,7 +42,7 @@ var onInput = function(input) {
 
 var input = '';
 
-if(rest === 0) {
+if(rest === argv.length) {
 	process.stdin.setEncoding('utf8');
 	process.stdin.on('readable', function() {
 		var buf = process.stdin.read();
@@ -42,7 +50,7 @@ if(rest === 0) {
 	});
 	process.stdin.on('end', function() {
 		// for some reason it adds a line break, which I don't want...
-		onInput(input[0] === '\n' ? input.substring(1) : input);
+		onInput(input.match(/(\n*)(.*)/)[2]);
 	});
 } else {
 	input = process.argv.slice(rest).join(' ');

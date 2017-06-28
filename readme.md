@@ -35,3 +35,8 @@ Pipe your message and sent to stdout.
 (╯°□°）╯︵ plɹoʍ ollǝH
 ```
 
+Unflip the message:
+```
+> flip-table -o okthkxbye | flip-table -ou
+okthkxbye ノ( º _ ºノ)
+```
