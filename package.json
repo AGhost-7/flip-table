@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/unit && mocha test/functional"
+    "test": "mocha test/unit && mocha test/functional",
+    "format": "prettier --write '**/*.js'",
+    "lint": "prettier --list-different '**/*.js' && eslint '**/*.js'",
+    "fix": "eslint --fix '**/*.js'"
   },
   "bin": {
     "flip-table": "./bin/flip-table"
@@ -21,6 +24,13 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5"
+    "eslint": "^5.0.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "mocha": "^2.4.5",
+    "prettier": "^1.13.6"
   }
 }
