@@ -1,10 +1,10 @@
 {
   "name": "flip-table",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/unit && mocha test/functional",
+    "test": "mocha test/unit && mocha test/integration && mocha test/functional",
     "format": "prettier --write '**/*.js'",
     "lint": "prettier --list-different '**/*.js' && eslint '**/*.js'",
     "fix": "eslint --fix '**/*.js'"
