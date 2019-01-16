@@ -1,6 +1,7 @@
 const flipTable = require('../..')
 const SqlClient = require('../../lib/sql-client')
-const connectionString = process.env.FLIPTABLE_CONNECTION || 'postgres://localhost'
+const connectionString =
+  process.env.FLIPTABLE_CONNECTION || 'postgres://localhost'
 
 describe('integration', function() {
   describe('sql client', function() {
