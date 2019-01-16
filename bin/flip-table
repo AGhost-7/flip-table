@@ -1,59 +1,80 @@
 #!/usr/bin/env node
 
-'use strict';
+'use strict'
 
-var
-	toClipboard = require('../lib/to-clipboard'),
-	flipTable = require('../index'),
-	argv = process.argv,
-	rest, clip, undo;
+const toClipboard = require('../lib/to-clipboard')
+const flipTable = require('../index')
+const SqlClient = require('../lib/sql-client')
+const argv = process.argv
+let rest, clip, undo, sql, sqlConnection
 
-if(argv[2] === '-uo' || argv[2] === '-ou') {
-	clip = false;
-	undo = true;
-	rest = 3;
-} else if((argv[2] === '-o' && argv[3] === '-u') ||
-		(argv[2] === '-u' && argv[3] === '-o')) {
-	clip = false;
-	undo = true;
-	rest = 4;
-} else if(argv[2] === '-o') {
-	clip = false;
-	undo = false;
-	rest = 3;
-} else if(argv[2] === '-u') {
-	clip = true;
-	undo = true;
-	rest = 3;
+if (argv[2] === '--sql') {
+  sql = true
+  clip = false
+  sqlConnection = argv[3]
+  rest = 4
+} else if (argv[2] === '-uo' || argv[2] === '-ou') {
+  clip = false
+  undo = true
+  rest = 3
+} else if ((argv[2] === '-o' && argv[3] === '-u') ||
+  (argv[2] === '-u' && argv[3] === '-o')) {
+  clip = false
+  undo = true
+  rest = 4
+} else if (argv[2] === '-o') {
+  clip = false
+  undo = false
+  rest = 3
+} else if (argv[2] === '-u') {
+  clip = true
+  undo = true
+  rest = 3
 } else {
-	clip = true;
-	undo = false;
-	rest = 2;
+  clip = true
+  undo = false
+  rest = 2
 }
 
 var onInput = function(input) {
-	var flipped = undo ? flipTable.undo(input) : flipTable(input);
-	if(clip) {
-		toClipboard(flipped);
-	} else {
-		console.log(flipped);
-	}
-};
-
-var input = '';
-
-if(rest === argv.length) {
-	process.stdin.setEncoding('utf8');
-	process.stdin.on('readable', function() {
-		var buf = process.stdin.read();
-		if(buf !== null) input += buf.toString();
-	});
-	process.stdin.on('end', function() {
-		// for some reason it adds a line break, which I don't want...
-		onInput(input.match(/(\n*)(.*)/)[2]);
-	});
-} else {
-	input = process.argv.slice(rest).join(' ');
-	onInput(input);
+  if (sql) {
+    const tables = input.split(/\s+/g).filter((table) => table.length > 0)
+    const client = new SqlClient(sqlConnection)
+    client
+      .connect()
+      .then(() => {
+        const promises = tables.map(table =>
+          client.rename(table, flipTable(table)))
+        return Promise.all(promises)
+      })
+      .then(() => process.exit(0))
+      .catch((err) => {
+        console.error(err)
+        process.exit(1)
+      })
+  } else {
+    const flipped = undo ? flipTable.undo(input) : flipTable(input)
+    if (clip) {
+      toClipboard(flipped)
+    } else {
+      console.log(flipped)
+    }
+  }
 }
 
+var input = ''
+
+if (rest === argv.length) {
+  process.stdin.setEncoding('utf8')
+  process.stdin.on('readable', function() {
+    var buf = process.stdin.read()
+    if (buf !== null) input += buf.toString()
+  })
+  process.stdin.on('end', function() {
+    // for some reason it adds a line break, which I don't want...
+    onInput(input.match(/(\n*)(.*)/)[2])
+  })
+} else {
+  input = process.argv.slice(rest).join(' ')
+  onInput(input)
+}

@@ -40,3 +40,14 @@ Unflip the message:
 > flip-table -o okthkxbye | flip-table -ou
 okthkxbye ノ( º _ ºノ)
 ```
+
+Flip sql table:
+```
+> flip-table --sql postgres://postgres@localhost:5432/template1 foobar
+```
+
+Flip many sql tables:
+```
+> psql -U postgres -q -t -c "select table_name from information_schema.tables where table_schema not in ('pg_catalog', 'information_schema')"| \
+  xargs flip-table --sql postgres://localhost
+```

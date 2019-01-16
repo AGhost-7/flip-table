@@ -1,0 +1,6 @@
+version: '2.1'
+services:
+  pg:
+    image: aghost7/pg-dev:10
+    ports:
+      - 5432:5432
